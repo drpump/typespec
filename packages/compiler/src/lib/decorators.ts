@@ -1268,11 +1268,13 @@ export const $opExample: OpExampleDecorator = (
     }
     if (
       returnType &&
-      !checkExampleValid(
-        context.program,
-        returnType,
-        target.returnType,
-        context.getArgumentTarget(0)!,
+      !(containsReference(returnType) ||
+        checkExampleValid(
+          context.program,
+          returnType,
+          target.returnType,
+          context.getArgumentTarget(0)!,
+        )
       )
     ) {
       return;
@@ -1286,6 +1288,19 @@ export const $opExample: OpExampleDecorator = (
   }
   list.push({ parameters, returnType, ...(options as any) });
 };
+
+function containsReference(returnType: Value) : boolean {
+  if (returnType.valueKind !== "ObjectValue") { return false }
+  const value = returnType as ObjectValue;
+  if (value.properties.size === 0) { return false; }
+  for (const child of value.properties.values()) {
+    if (child.value.valueKind === "ObjectValue" && child.value.properties.has("$ref")) {
+      console.log("Found JSON $ref in example object", child.value);
+      return true;
+    }
+  }
+  return false;
+}
 
 function checkExampleValid(
   program: Program,
