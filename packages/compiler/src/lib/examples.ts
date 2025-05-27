@@ -92,6 +92,11 @@ function serializeObjectValueAsJson(
 ): Record<string, unknown> {
   type = resolveUnions(program, value, type) ?? type;
   const obj: Record<string, unknown> = {};
+  if (value.properties.size === 1 && value.properties.has("$ref")) {
+    // Special case for $ref
+    obj.$ref = serializeValueAsJson(program, value.properties.get("$ref")!.value, program.checker.anyType);
+    return obj;
+  }
   for (const propValue of value.properties.values()) {
     const definition = getPropertyOfType(type, propValue.name);
     if (definition) {
