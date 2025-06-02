@@ -93,6 +93,10 @@
         "destination": "lib/main.tsp"
       },
       {
+        "path": "library-ts/package-lock.json",
+        "destination": "package-lock.json"
+      },
+      {
         "path": "library-ts/package.json",
         "destination": "package.json"
       },
@@ -159,6 +163,10 @@
       {
         "path": "emitter-ts/eslint.config.js",
         "destination": "eslint.config.js"
+      },
+      {
+        "path": "emitter-ts/package-lock.json",
+        "destination": "package-lock.json"
       },
       {
         "path": "emitter-ts/package.json",
