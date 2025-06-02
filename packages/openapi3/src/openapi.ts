@@ -122,6 +122,7 @@ import {
 import { resolveVersioningModule } from "./versioning-module.js";
 import { resolveVisibilityUsage, VisibilityUsageTracker } from "./visibility-usage.js";
 import { resolveXmlModule, XmlModule } from "./xml-module.js";
+import { set as setAtPath  } from 'es-toolkit/compat';
 
 const defaultFileType: FileType = "yaml";
 const defaultOptions = {
@@ -1660,8 +1661,9 @@ function createOAPIEmitter(
     const extensions = getExtensions(program, type);
     if (extensions) {
       for (const key of extensions.keys()) {
-        emitObject[key] = extensions.get(key);
-      }
+        // emitObject[key] = extensions.get(key);
+        setAtPath(emitObject, key, extensions.get(key));
+    }
     }
   }
 
