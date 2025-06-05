@@ -3,9 +3,9 @@ name: Merge release branch back into main
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  push:
-    branches:
-      - "release/*"
+  # push:
+  #   branches:
+  #     - "release/*"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 

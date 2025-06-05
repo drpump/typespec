@@ -3,14 +3,14 @@ name: Sync labels
 on:
   # schedule:
   #   - cron: "0 0 * * *"
-  push:
-    branches:
-      - "main"
-    paths:
-      - "package.json"
-      - "eng/common/config/"
-      - "eng/common/labels/"
-      - ".github/workflows/sync-labels.yml"
+  # push:
+  #   branches:
+  #     - "main"
+  #   paths:
+  #     - "package.json"
+  #     - "eng/common/config/"
+  #     - "eng/common/labels/"
+  #     - ".github/workflows/sync-labels.yml"
 
   workflow_dispatch: {}
 

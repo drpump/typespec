@@ -1,14 +1,15 @@
 name: Verify labels
 on:
-  pull_request:
-    branches:
-      - "main"
-    paths:
-      - "package.json"
-      - "eng/common/config/"
-      - "eng/common/labels/"
-      - ".github/workflows/sync-labels.yml"
-      - "CONTRIBUTING.md"
+  workflow_dispatch: {}
+  # pull_request:
+  #   branches:
+  #     - "main"
+  #   paths:
+  #     - "package.json"
+  #     - "eng/common/config/"
+  #     - "eng/common/labels/"
+  #     - ".github/workflows/sync-labels.yml"
+  #     - "CONTRIBUTING.md"
 
 jobs:
   verify:

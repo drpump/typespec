@@ -1,13 +1,13 @@
 name: Integration
 
 on:
-  pull_request:
-    branches: ["main"]
-    paths-ignore:
-      - "packages/http-client-csharp/**"
-      - "packages/http-client-java/**"
-      - "packages/http-client-python/**"
-      - "website/**"
+  # pull_request:
+  #   branches: ["main"]
+  #   paths-ignore:
+  #     - "packages/http-client-csharp/**"
+  #     - "packages/http-client-java/**"
+  #     - "packages/http-client-python/**"
+  #     - "website/**"
   # Allow manual triggering
   workflow_dispatch:
 

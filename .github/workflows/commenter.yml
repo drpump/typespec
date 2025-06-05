@@ -1,10 +1,11 @@
 name: Make Change Comment
 
 on:
-  workflow_run:
-    workflows: ["Consistency"]
-    types:
-      - completed
+  workflow_dispatch: {}
+  # workflow_run:
+  #   workflows: ["Consistency"]
+  #   types:
+  #     - completed
 
 permissions:
   pull-requests: write
