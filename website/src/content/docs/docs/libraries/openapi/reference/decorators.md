@@ -36,8 +36,11 @@ op listPets(): Pet[] | PetStoreResponse;
 
 Attach some custom data to the OpenAPI element generated from this type.
 
+An array of strings can optionally be specified as the key to allow more deeply nested values to be set within the emitted object.
+For example, JSON references for OpenAPI examples can be added.
+
 ```typespec
-@TypeSpec.OpenAPI.extension(key: valueof string, value: valueof unknown)
+@TypeSpec.OpenAPI.extension(key: valueof string | string[], value: valueof unknown)
 ```
 
 #### Target
@@ -46,16 +49,20 @@ Attach some custom data to the OpenAPI element generated from this type.
 
 #### Parameters
 
-| Name  | Type              | Description      |
-| ----- | ----------------- | ---------------- |
-| key   | `valueof string`  | Extension key.   |
-| value | `valueof unknown` | Extension value. |
+| Name  | Type                         | Description      |
+| ----- | ---------------------------- | ---------------- |
+| key   | `valueof string \| string[]` | Extension key.   |
+| value | `valueof unknown`            | Extension value. |
 
 #### Examples
 
 ```typespec
 @extension("x-custom", "My value")
 @extension("x-pageable", #{ nextLink: "x-next-link" })
+@extension(
+  ["responses", "200", "content", "application/json", "examples", "myexample", "value"],
+  #{ $ref: "my-example.json" }
+)
 op read(): string;
 ```
 
