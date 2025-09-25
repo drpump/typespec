@@ -43,7 +43,7 @@ jobs:
         if: steps.ff.outputs.ff != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TYPESPEC_TOKEN }}
           commit-message: "chore: sync fork with upstream"
           title: "Sync: upstream → main"
           body: "Automated sync. Resolve conflicts if present."
