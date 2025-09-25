@@ -19,11 +19,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-  
       - name: Add upstream and fetch
         run: |
           git remote add upstream https://github.com/microsoft/typespec.git
@@ -51,6 +46,7 @@ jobs:
         with:
           token: ${{ secrets.TYPESPEC_TOKEN }}
           branch-token: ${{ secrets.TYPESPEC_TOKEN }}
+          committer: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
           commit-message: "chore: sync fork with upstream"
           title: "Sync: upstream → main"
           body: "Automated sync. Resolve conflicts if present."
