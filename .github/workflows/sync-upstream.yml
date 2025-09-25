@@ -1,0 +1,51 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"     # every 6 hours; adjust as you like
+  workflow_dispatch: {}        # allow manual run
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add upstream and fetch
+        run: |
+          git remote add upstream https://github.com/microsoft/typespec.git
+          git fetch upstream --tags
+
+      - name: Try fast-forward merge main <- upstream/main
+        id: ff
+        run: |
+          git checkout main
+          if git merge --ff-only upstream/main; then
+            echo "ff=true" >> $GITHUB_OUTPUT
+          else
+            echo "ff=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push fast-forwarded main (and tags)
+        if: steps.ff.outputs.ff == 'true'
+        run: |
+          git push origin main
+          git push --tags
+
+      - name: Open PR when fast-forward not possible (divergence/conflicts)
+        if: steps.ff.outputs.ff != 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: sync fork with upstream"
+          title: "Sync: upstream → main"
+          body: "Automated sync. Resolve conflicts if present."
+          base: main
+          branch: bot/upstream-sync
