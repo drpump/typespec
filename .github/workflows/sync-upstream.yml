@@ -13,17 +13,17 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-  
       - name: Checkout fork
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+  
       - name: Add upstream and fetch
         run: |
           git remote add upstream https://github.com/microsoft/typespec.git
